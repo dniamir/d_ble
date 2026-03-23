@@ -10,7 +10,7 @@ use ble::gatt_server;
 
 use embassy_executor::Spawner;
 
-use crate::{d_log::dlogger::DLogger, d_info};  // Logging
+use crate::{d_log::dlogger_common::DLogger, d_info};  // Logging
 
 static ADV_DATA: StaticCell<LegacyAdvertisementPayload> = StaticCell::new();
 static SCAN_DATA: StaticCell<LegacyAdvertisementPayload> = StaticCell::new();
