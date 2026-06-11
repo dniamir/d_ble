@@ -147,14 +147,14 @@ fn build_default_adv_payload() -> LegacyAdvertisementPayload {
     LegacyAdvertisementBuilder::new()
         .flags(&[Flag::GeneralDiscovery, Flag::LE_Only])
         .services_16(ServiceList::Complete, &[ServiceUuid16::BATTERY])
-        .short_name("MyShortRust")
+        .short_name("WeatherStation1")
         .build()
 }
 
 // Default scan payload
 fn build_default_scan_payload() -> LegacyAdvertisementPayload {
     LegacyAdvertisementBuilder::new()
-        .full_name("MyLongRust")
+        .full_name("WeatherStation2")
         .build()
 }
 
