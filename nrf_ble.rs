@@ -5,7 +5,8 @@ use core::mem;
 
 use nrf_softdevice::{ble, raw, Softdevice};
 use ble::peripheral::{self, ConnectableAdvertisement, NonconnectableAdvertisement};
-use ble::advertisement_builder::{Flag, LegacyAdvertisementBuilder, LegacyAdvertisementPayload, ServiceList, ServiceUuid16,};
+use ble::advertisement_builder::{Flag, LegacyAdvertisementBuilder, ServiceList, ServiceUuid16,};
+pub use ble::advertisement_builder::LegacyAdvertisementPayload;
 use ble::gatt_server;
 
 use embassy_executor::Spawner;
