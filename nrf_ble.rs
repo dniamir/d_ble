@@ -100,7 +100,7 @@ impl BLEWrapper {
 
         // Advertise as a non-connectable
         if !connectable {
-            d_info!("Creating non-connectable advertisement");
+            d_info!("Creating non-connectable BLE advertisement");
             DLogger::d_sep();
             let adv = NonconnectableAdvertisement::ScannableUndirected {
                 adv_data: self.adv_data,
@@ -110,7 +110,7 @@ impl BLEWrapper {
         }
         // Advertise as a connectable
         else{
-            d_info!("Creating connectable advertisement");
+            d_info!("Creating connectable BLE advertisement");
             DLogger::d_sep();
             let adv = ConnectableAdvertisement::ScannableUndirected {
                 adv_data: self.adv_data,
@@ -142,21 +142,22 @@ impl BLEWrapper {
 
 /// DEFAULTS
 
-// Default advertisement payload
-fn build_default_adv_payload() -> LegacyAdvertisementPayload {
+pub fn build_adv_payload(short_name: &str) -> LegacyAdvertisementPayload {
     LegacyAdvertisementBuilder::new()
         .flags(&[Flag::GeneralDiscovery, Flag::LE_Only])
         .services_16(ServiceList::Complete, &[ServiceUuid16::BATTERY])
-        .short_name("WeatherStation1")
+        .short_name(short_name)
         .build()
 }
 
-// Default scan payload
-fn build_default_scan_payload() -> LegacyAdvertisementPayload {
+pub fn build_scan_payload(full_name: &str) -> LegacyAdvertisementPayload {
     LegacyAdvertisementBuilder::new()
-        .full_name("WeatherStation2")
+        .full_name(full_name)
         .build()
 }
+
+fn build_default_adv_payload() -> LegacyAdvertisementPayload { build_adv_payload("AdvName") }
+fn build_default_scan_payload() -> LegacyAdvertisementPayload { build_scan_payload("ScanName") }
 
 // Default SoftDevice config
 fn build_default_sd_config() -> nrf_softdevice::Config {
@@ -183,7 +184,7 @@ fn build_default_sd_config() -> nrf_softdevice::Config {
             _bitfield_1: raw::ble_gap_cfg_role_count_t::new_bitfield_1(0),
         }),
         gap_device_name: Some(raw::ble_gap_cfg_device_name_t {
-            p_value: b"HelloRust" as *const u8 as _,
+            p_value: b"Hello_nRF" as *const u8 as _,
             current_len: 9,
             max_len: 9,
             write_perm: unsafe { mem::zeroed() },
